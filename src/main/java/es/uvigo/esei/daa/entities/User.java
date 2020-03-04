@@ -11,7 +11,7 @@ public class User {
 	private String login;
 	private String password;
 	private String role;
-
+	
 	// Constructor needed for the JSON conversion
 	User() {}
 	

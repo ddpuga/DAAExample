@@ -30,6 +30,7 @@ public class PeopleDAO extends DAO {
 	 * @throws IllegalArgumentException if the provided id does not corresponds
 	 * with any persisted person.
 	 */
+	
 	public Person get(int id)
 	throws DAOException, IllegalArgumentException {
 		try (final Connection conn = this.getConnection()) {

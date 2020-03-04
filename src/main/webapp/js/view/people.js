@@ -8,13 +8,18 @@ var PeopleView = (function() {
 	var listId = 'people-list';
 	var formQuery = '#' + formId;
 	var listQuery = '#' + listId;
+	var formContainerQuery;
+	var listContainerQuery;
 	
 	function PeopleView(peopleDao, formContainerId, listContainerId) {
 		dao = peopleDao;
 		self = this;
 		
-		insertPeopleForm($('#' + formContainerId));
-		insertPeopleList($('#' + listContainerId));
+		formContainerQuery = '#' + formContainerId;
+		listContainerQuery = '#' + listContainerId;
+		
+		insertPeopleForm($(formContainerQuery));
+		insertPeopleList($(listContainerQuery));
 		
 		this.init = function() {
 			dao.listPeople(function(people) {
@@ -105,6 +110,30 @@ var PeopleView = (function() {
 				);
 			}
 		};
+		
+		this.editPets = function(id) {
+			$(formContainerQuery).empty();
+			$(listContainerQuery).empty();
+
+			$(formContainerQuery).append('<h1 class="display-5 mt-3 mb-3">Pets</h1>');
+			var petsView = new PetsView(id, new PetsDAO(), formContainerId, listContainerId);
+			petsView.init();
+		}
+		
+		var createPersonRow = function(person) {
+			return '<tr id="person-'+ person.id +'" class="row">\
+				<td class="name col-sm-4">' + person.name + '</td>\
+				<td class="surname col-sm-5">' + person.surname + '</td>\
+				<td class="col-sm-3">\
+					<a class="edit btn btn-primary" href="#">Editar</a>\
+					<a class="delete btn btn-warning" href="#">Eliminar</a>\
+					<a class="mascotas btn btn-info" href="#">Mascotas</a>\
+				</td>\
+			</tr>';
+		};
+		
+		
+		
 
 		this.isEditing = function() {
 			return $(formQuery + ' input[name="id"]').val() != "";
@@ -168,6 +197,7 @@ var PeopleView = (function() {
 			<td class="col-sm-3">\
 				<a class="edit btn btn-primary" href="#">Editar</a>\
 				<a class="delete btn btn-warning" href="#">Eliminar</a>\
+				<a href="#" class="mascotas btn btn-info">Mascotas</a>\
 			</td>\
 		</tr>';
 	};
@@ -183,6 +213,10 @@ var PeopleView = (function() {
 		
 		$('#person-' + person.id + ' a.delete').click(function() {
 			self.deletePerson(person.id);
+		});
+		
+		$('#person-' + person.id + ' a.mascotas').click(function() {
+			self.editPets(person.id);
 		});
 	};
 

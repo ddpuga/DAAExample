@@ -7,6 +7,15 @@ CREATE TABLE `daaexample`.`people` (
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `daaexample`.`pets` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`name` varchar(50) NOT NULL,
+	`owner` varchar(100) NOT NULL,
+	INDEX person_id (people_id),
+    	PersonID int FOREIGN KEY REFERENCES people(people.id)
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `daaexample`.`users` (
 	`login` varchar(100) NOT NULL,
 	`password` varchar(64) NOT NULL,

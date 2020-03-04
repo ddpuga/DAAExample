@@ -2,6 +2,8 @@ package es.uvigo.esei.daa.entities;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 /**
  * An entity that represents a person.
  * 
@@ -11,6 +13,8 @@ public class Person {
 	private int id;
 	private String name;
 	private String surname;
+	
+	private List<Pet> pets;
 	
 	// Constructor needed for the JSON conversion
 	Person() {}
