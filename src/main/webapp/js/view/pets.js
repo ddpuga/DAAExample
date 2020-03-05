@@ -91,7 +91,7 @@ var PetsView = (function() {
 			}
 		};
 		
-		this.deletePerson = function(id) {
+		this.deletePet = function(id) {
 			if (confirm('Está a punto de eliminar a una mascota. ¿Está seguro de que desea continuar?')) {
 				dao.deletePet(id,
 					function() {

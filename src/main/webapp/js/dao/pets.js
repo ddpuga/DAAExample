@@ -31,15 +31,15 @@ var PetsDAO = (function() { // class PetsDAO {
 	    }, done, fail, always);
 	};
 
-	this.modifyPet = function(person, done, fail, always) {
+	this.modifyPet = function(pet, done, fail, always) {
 	    requestByAjax({
-		url : resourcePath + person.id,
+		url : resourcePath + pet.id,
 		type : 'PUT',
-		data : person
+		data : pet
 	    }, done, fail, always);
 	};
 
-	this.deletePet = function(id, done, fail, always) {
+	this.deletePet = function(pet, done, fail, always) {
 	    requestByAjax({
 		url : resourcePath + id,
 		type : 'DELETE',

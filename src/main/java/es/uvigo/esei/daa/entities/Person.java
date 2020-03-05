@@ -14,7 +14,7 @@ public class Person {
 	private String name;
 	private String surname;
 	
-	private List<Pet> pets;
+	//private List<Pet> pets;
 	
 	// Constructor needed for the JSON conversion
 	Person() {}
