@@ -5,7 +5,7 @@ CREATE TABLE `daaexample`.`people` (
 	`name` varchar(50) NOT NULL,
 	`surname` varchar(100) NOT NULL,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `daaexample`.`pets` (
 	`id` int NOT NULL AUTO_INCREMENT,
@@ -21,9 +21,10 @@ CREATE TABLE `daaexample`.`users` (
 	`password` varchar(64) NOT NULL,
 	`role` varchar(10) NOT NULL,
 	PRIMARY KEY (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-GRANT ALL ON `daaexample`.* TO 'daa'@'localhost' IDENTIFIED BY 'daa';
+CREATE USER 'daa'@'localhost' IDENTIFIED WITH mysql_native_password BY 'daa';
+GRANT ALL ON `daaexample`.* TO 'daa'@'localhost';
 
 INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'Antón','Pérez');
 INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'Manuel','Martínez');
