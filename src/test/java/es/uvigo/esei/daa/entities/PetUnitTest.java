@@ -16,24 +16,24 @@ public class PetUnitTest {
 	public void testPetIntStringPerson() {
 		final int id = 1;
 		final String name = "John";
-		final Person owner = new Person(1, "John", "Smith");
+		final int owner = 1;
 		
 		final Pet pet = new Pet(id, name, owner);
 		
 		assertThat(pet.getId(), is(equalTo(id)));
 		assertThat(pet.getName(), is(equalTo(name)));
-		assertThat(pet.getOwner().getId(), is(equalTo(owner.getId())));
+		assertThat(pet.getOwner(), is(equalTo(owner)));
 	}
 	
 		
 		@Test(expected = NullPointerException.class)
 		public void testPetIntStringPersonNullName() {
-			new Pet(1, null, new Person (1, "John", "Smith"));
+			new Pet(1, null, 1);
 		}
 		
 		@Test(expected = NullPointerException.class)
 		public void testPetIntStringStringNullOwner() {
-			new Pet(1, "Puppy", null);
+			new Pet(1, "Puppy", 1);
 		}
 		
 		@Test
@@ -41,7 +41,7 @@ public class PetUnitTest {
 			final int id = 1;
 			final Person owner = new Person(1, "John", "Smith");
 			
-			final Pet pet = new Pet(id, "Petty", owner);
+			final Pet pet = new Pet(id, "Petty", 1);
 			pet.setName("Gato");
 			
 			assertThat(pet.getId(), is(equalTo(id)));
@@ -51,7 +51,7 @@ public class PetUnitTest {
 		
 		@Test(expected = NullPointerException.class)
 		public void testSetNullName() {
-			final Pet pet = new Pet(1, "Petty", new Person(1, "John", "Smith"));
+			final Pet pet = new Pet(1, "Petty", 1);
 			
 			pet.setName(null);
 		}
@@ -62,8 +62,8 @@ public class PetUnitTest {
 			final String name = "Petty";
 			Person owner = new Person(2,"Dolores", "Lola");
 			
-			final Pet pet = new Pet(id, name, new Person(1,"John", "Smith"));
-			pet.setOwner(owner);
+			final Pet pet = new Pet(id, name, 1);
+			pet.setOwner(1);
 			
 			assertThat(pet.getId(), is(equalTo(id)));
 			assertThat(pet.getName(), is(equalTo(name)));
@@ -72,15 +72,15 @@ public class PetUnitTest {
 		
 		@Test(expected = NullPointerException.class)
 		public void testSetNullOwner() {
-			final Pet pet = new Pet(1, "Petty", new Person(1,"John", "Smith") );
+			final Pet pet = new Pet(1, "Petty", 1 );
 			
-			pet.setOwner(null);
+			pet.setOwner(1);
 		}
 		
 		@Test
 		public void testEqualsObject() {
-			final Pet pet1 = new Pet(1, "Name A", new Person(1, "Person 1", "Surname 1"));
-			final Pet pet2 = new Pet(1, "Name B",new Person(1, "Person 2", "Surname 2"));
+			final Pet pet1 = new Pet(1, "Name A",1);
+			final Pet pet2 = new Pet(1, "Name B",2);
 			
 			assertTrue(pet1.equals(pet2));
 		}

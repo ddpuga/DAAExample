@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class Pet {
 	private int id;
 	private String name;
-	private Person owner;
+	private int owner;
 	
 	// Constructor needed for the JSON conversion
 	Pet() {}
@@ -22,7 +22,7 @@ public class Pet {
 	 * @param name name of the pet.
 	 * @param owner owner of the pet.
 	 */
-	public Pet(int id, String name, Person owner) {
+	public Pet(int id, String name, int owner) {
 		this.id = id;
 		this.setName(name);
 		this.setOwner(owner);
@@ -61,7 +61,7 @@ public class Pet {
 	 * 
 	 * @return the owner of the pet.
 	 */
-	public Person getOwner() {
+	public int getOwner() {
 		return owner;
 	}
 
@@ -71,7 +71,7 @@ public class Pet {
 	 * @param surname the new owner of the pet.
 	 * @throws NullPointerException if the {@code owner} is {@code null}.
 	 */
-	public void setOwner(Person owner) {
+	public void setOwner(int owner) {
 		this.owner = requireNonNull(owner, "Owner can't be null");
 	}
 

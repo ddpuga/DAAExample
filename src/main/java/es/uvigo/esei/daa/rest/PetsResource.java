@@ -111,7 +111,7 @@ public class PetsResource {
 	@POST
 	public Response add(
 		@FormParam("name") String name, 
-		@FormParam("owner") int owner
+		@FormParam("ownerId") int owner
 	) {
 		try {
 			final Pet newPet = this.dao.add(name, owner);
@@ -135,11 +135,10 @@ public class PetsResource {
 	/**
 	 * Modifies the data of a pet.
 	 * 
-	 * @param id identifier of the person to modify.
-	 * @param name the new name of the person.
-	 * @param surname the new surname of the person.
-	 * @return a 200 OK response with a person that has been modified. If the
-	 * identifier does not corresponds with any user or the name or surname are
+	 * @param id identifier of the pet to modify.
+	 * @param name the new name of the pet.
+	 * @return a 200 OK response with a pet that has been modified. If the
+	 * identifier does not corresponds with any user or the name or owner
 	 * not provided, a 400 Bad Request response with an error message will be
 	 * returned. If an error happens while retrieving the list, a 500 Internal
 	 * Server Error response with an error message will be returned.
@@ -150,10 +149,10 @@ public class PetsResource {
 	public Response modify(
 		@PathParam("id") int id, 
 		@FormParam("name") String name, 
-		@FormParam("owner") int owner
+		@FormParam("ownerId") int owner
 	) {
 		try {
-			final Pet modifiedPet = new Pet(id, name, this.dao.get(id).getOwner());
+			final Pet modifiedPet = new Pet(id, name, owner);
 			this.dao.modify(modifiedPet);
 			
 			return Response.ok(modifiedPet).build();

@@ -1,5 +1,6 @@
 var PetsView = (function() {
 	var dao;
+	var owner;
 	
 	// Referencia a this que permite acceder a las funciones públicas desde las funciones de jQuery.
 	var self;
@@ -9,12 +10,19 @@ var PetsView = (function() {
 	var formQuery = '#' + formId;
 	var listQuery = '#' + listId;
 	
+	var formContainerQuery;
+	var listContainerQuery;
+	
 	function PetsView(ownerId, petsDao, formContainerId, listContainerId) {
 		dao = petsDao;
 		self = this;
+		owner = ownerId;
 		
 		insertPetsForm($('#' + formContainerId));
 		insertPetsList($('#' + listContainerId));
+		
+		formContainerQuery = '#' + formContainerId;
+		listContainerQuery = '#' + listContainerId;
 		
 		this.init = function() {
 			dao.listPetsByOwner(ownerId, function(pets) {
@@ -29,12 +37,12 @@ var PetsView = (function() {
 			// La acción por defecto de enviar formulario (submit) se sobreescribe
 			// para que el envío sea a través de AJAX
 			$(formQuery).submit(function(event) {
-				var person = self.getPersonInForm();
+				var pet = self.getPetInForm();
 				
 				if (self.isEditing()) {
 					dao.modifyPet(pet,
 						function(pet) {
-							$('#pet-' + person.id + ' td.name').text(pet.name);
+							$('#pet-' + pet.id + ' td.name').text(pet.name);
 							self.resetForm();
 						},
 						showErrorMessage,
@@ -43,6 +51,7 @@ var PetsView = (function() {
 				} else {
 					dao.addPet(pet,
 						function(pet) {
+							console.log(pet);
 							appendToTable(pet);
 							self.resetForm();
 						},
@@ -55,13 +64,15 @@ var PetsView = (function() {
 			});
 			
 			$('#btnClear').click(this.resetForm);
+			$('#btnBack').click(this.back);
 		};
 
 		this.getPetInForm = function() {
 			var form = $(formQuery);
 			return {
 				'id': form.find('input[name="id"]').val(),
-				'name': form.find('input[name="name"]').val(),
+				'ownerId': owner,
+				'name': form.find('input[name="name"]').val()		
 			};
 		};
 
@@ -72,6 +83,7 @@ var PetsView = (function() {
 				return {
 					'id': id,
 					'name': row.find('td.name').text(),
+					'ownerId' : owner
 				};
 			} else {
 				return undefined;
@@ -80,6 +92,8 @@ var PetsView = (function() {
 		
 		this.editPet = function(id) {
 			var row = $('#pet-' + id);
+			
+			console.log("Entrando en editPet");
 
 			if (row !== undefined) {
 				var form = $(formQuery);
@@ -89,6 +103,8 @@ var PetsView = (function() {
 				
 				$('input#btnSubmit').val('Modificar');
 			}
+			
+			console.log("Saliendo de editPet");
 		};
 		
 		this.deletePet = function(id) {
@@ -101,9 +117,25 @@ var PetsView = (function() {
 				);
 			}
 		};
+		
+		this.back = function() {
+			
+			$(formContainerQuery).empty();
+			$(listContainerQuery).empty();
+			$(formContainerQuery).append('<h1 class="display-5 mt-3 mb-3">Personas</h1>');
+			
+			var view = new PeopleView(new PeopleDAO(),
+					'people-container', 'people-container'
+					);
+			
+			view.init();
+			
+		}
 
 		this.isEditing = function() {
+			console.log("Entrando en is editing");
 			return $(formQuery + ' input[name="id"]').val() != "";
+			console.log("Saliendo de is editing");
 		};
 
 		this.disableForm = function() {
@@ -116,7 +148,7 @@ var PetsView = (function() {
 
 		this.resetForm = function() {
 			$(formQuery)[0].reset();
-			$(formQuery + ' input[name="id"]').val('');
+			$(formQuery + 'input[name="id"]').val('');
 			$('#btnSubmit').val('Crear');
 		};
 	};
@@ -147,6 +179,7 @@ var PetsView = (function() {
 					<div class="col-sm-3">\
 						<input id="btnSubmit" type="submit" value="Crear" class="btn btn-primary" />\
 						<input id="btnClear" type="reset" value="Limpiar" class="btn" />\
+						<input id="btnBack" type="reset" value="Atrás" class="btn btn-primary" />\
 					</div>\
 				</div>\
 			</form>'
@@ -161,6 +194,7 @@ var PetsView = (function() {
 				<a class="delete btn btn-light" href="#">Eliminar</a>\
 			</td>\
 		</tr>';
+		console.log(pet.id);
 	};
 
 	var showErrorMessage = function(jqxhr, textStatus, error) {

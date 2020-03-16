@@ -57,29 +57,6 @@ public class PetsDAO extends DAO{
 		 * @throws DAOException if an error happens while retrieving the pets.
 		 */
 		
-		/*
-		public List<Pet> list() throws DAOException {
-			try (final Connection conn = this.getConnection()) {
-				final String query = "SELECT * FROM pets";
-				
-				try (final PreparedStatement statement = conn.prepareStatement(query)) {
-					try (final ResultSet result = statement.executeQuery()) {
-						final List<Pet> pets = new LinkedList<>();
-						
-						while (result.next()) {
-							pets.add(rowToEntity(result));
-						}
-						
-						return pets;
-					}
-				}
-			} catch (SQLException e) {
-				LOG.log(Level.SEVERE, "Error listing pets", e);
-				throw new DAOException(e);
-			}
-		}*/
-		
-		
 		public List<Pet> listWithOwner(int ownerId) throws DAOException {
 			try (final Connection conn = this.getConnection()) {
 				final String query = "SELECT * FROM pets where ownerID=?";
@@ -114,7 +91,7 @@ public class PetsDAO extends DAO{
 		 */
 		public Pet add(String name, int ownerId)
 		throws DAOException, IllegalArgumentException {
-			if (name == null) {
+			if (name == null || ownerId == 0) {
 				throw new IllegalArgumentException("name and owner can't be null");
 			}
 			
@@ -128,8 +105,8 @@ public class PetsDAO extends DAO{
 					if (statement.executeUpdate() == 1) {
 						try (ResultSet resultKeys = statement.getGeneratedKeys()) {
 							if (resultKeys.next()) {
-								PeopleDAO peopleDao = new PeopleDAO();
-								return new Pet(resultKeys.getInt(1), name, peopleDao.get(ownerId));
+								//PeopleDAO peopleDao = new PeopleDAO();
+								return new Pet(resultKeys.getInt(1), name, ownerId);
 							} else {
 								LOG.log(Level.SEVERE, "Error retrieving inserted id");
 								throw new SQLException("Error retrieving inserted id");
@@ -162,11 +139,11 @@ public class PetsDAO extends DAO{
 			}
 			
 			try (Connection conn = this.getConnection()) {
-				final String query = "UPDATE pets SET name=?, owner=? WHERE id=?";
+				final String query = "UPDATE pets SET name=?, ownerID=? WHERE id=?";
 				
 				try (PreparedStatement statement = conn.prepareStatement(query)) {
 					statement.setString(1, pet.getName());
-					statement.setInt(2, pet.getOwner().getId());
+					statement.setInt(2, pet.getOwner());
 					statement.setInt(3, pet.getId());
 					
 					if (statement.executeUpdate() != 1) {
@@ -209,11 +186,10 @@ public class PetsDAO extends DAO{
 			
 			PeopleDAO people = new PeopleDAO();
 			int ownerID = row.getInt("ownerID");
-			Person owner = people.get(ownerID);
 			return new Pet(
 				row.getInt("id"),
 				row.getString("name"),
-				owner
+				ownerID
 			);
 		}
 	}

@@ -24,6 +24,7 @@ var PetsDAO = (function() { // class PetsDAO {
 	};
 
 	this.addPet = function(pet, done, fail, always) {
+		console.log(pet);
 	    requestByAjax({
 		url : resourcePath,
 		type : 'POST',
@@ -39,7 +40,7 @@ var PetsDAO = (function() { // class PetsDAO {
 	    }, done, fail, always);
 	};
 
-	this.deletePet = function(pet, done, fail, always) {
+	this.deletePet = function(id, done, fail, always) {
 	    requestByAjax({
 		url : resourcePath + id,
 		type : 'DELETE',

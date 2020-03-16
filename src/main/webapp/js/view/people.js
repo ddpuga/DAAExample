@@ -28,7 +28,7 @@ var PeopleView = (function() {
 				});
 			},
 			function() {
-			    	alert('No has sido posible acceder al listado de personas.');
+			    	alert('No ha sido posible acceder al listado de personas.');
 			});
 			
 			// La acción por defecto de enviar formulario (submit) se sobreescribe
@@ -114,11 +114,13 @@ var PeopleView = (function() {
 		this.editPets = function(id) {
 			$(formContainerQuery).empty();
 			$(listContainerQuery).empty();
-
+			
 			$(formContainerQuery).append('<h1 class="display-5 mt-3 mb-3">Pets</h1>');
 			var petsView = new PetsView(id, new PetsDAO(), formContainerId, listContainerId);
+			
 			petsView.init();
 		}
+		
 		
 		var createPersonRow = function(person) {
 			return '<tr id="person-'+ person.id +'" class="row">\
@@ -131,7 +133,6 @@ var PeopleView = (function() {
 				</td>\
 			</tr>';
 		};
-		
 		
 		
 

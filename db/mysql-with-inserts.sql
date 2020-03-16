@@ -14,7 +14,7 @@ CREATE TABLE `daaexample`.`pets` (
 	INDEX person_id (people_id),
     	PersonID int FOREIGN KEY REFERENCES people(people.id)
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `daaexample`.`users` (
 	`login` varchar(100) NOT NULL,
