@@ -148,7 +148,7 @@ var PetsView = (function() {
 
 		this.resetForm = function() {
 			$(formQuery)[0].reset();
-			$(formQuery + 'input[name="id"]').val('');
+			$(formQuery + ' input[name="id"]').val('');
 			$('#btnSubmit').val('Crear');
 		};
 	};

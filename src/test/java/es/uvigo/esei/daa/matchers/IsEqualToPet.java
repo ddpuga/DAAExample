@@ -3,7 +3,6 @@ package es.uvigo.esei.daa.matchers;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 
-import es.uvigo.esei.daa.entities.Person;
 import es.uvigo.esei.daa.entities.Pet;
 
 public class IsEqualToPet extends IsEqualToEntity<Pet> {
@@ -21,7 +20,7 @@ public class IsEqualToPet extends IsEqualToEntity<Pet> {
 		} else {
 			return checkAttribute("id", Pet::getId, actual)
 				&& checkAttribute("name", Pet::getName, actual)
-				&& checkAttribute("owner", Pet::getOwner, actual);
+				&& checkAttribute("ownerID", Pet::getOwner, actual);
 		}
 	}
 

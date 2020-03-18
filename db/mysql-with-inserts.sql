@@ -1,19 +1,15 @@
 CREATE DATABASE `daaexample`;
 
 CREATE TABLE `daaexample`.`people` (
-	`id` int NOT NULL AUTO_INCREMENT,
-	`name` varchar(50) NOT NULL,
-	`surname` varchar(100) NOT NULL,
-	PRIMARY KEY (`id`)
+	`id` int(11) NOT NULL,
+  	`name` varchar(50) NOT NULL,
+  	`surname` varchar(100) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `daaexample`.`pets` (
-	`id` int NOT NULL AUTO_INCREMENT,
-	`name` varchar(50) NOT NULL,
-	`owner` varchar(100) NOT NULL,
-	INDEX person_id (people_id),
-    	PersonID int FOREIGN KEY REFERENCES people(people.id)
-	PRIMARY KEY (`id`)
+	`id` int(11) NOT NULL,
+  	`name` varchar(50) NOT NULL,
+  	`ownerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `daaexample`.`users` (
@@ -34,7 +30,25 @@ INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'Ana','Marí
 INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'María','Nuevo');
 INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'Alba','Fernández');
 INSERT INTO `daaexample`.`people` (`id`,`name`,`surname`) VALUES (0,'Asunción','Jiménez');
+INSERT INTO `daaexample`.`people` (`id`, `name`, `surname`) VALUES
+(3, 'Laura', 'Reboredo'),
+(5, 'Ana', 'Marí'),
+(9, 'Daniel', 'Duque'),
+(11, 'Jose', 'Do Rego'),
+(15, 'Manolo', 'Escobar'),
+(16, 'Leticia', 'Sabater');
 
+INSERT INTO `daaexample`.`pets` (`id`, `name`, `ownerID`) VALUES
+(15, 'Lassie', 3),
+(32, 'Paco Pico', 3),
+(33, 'Winnie', 3),
+(34, 'Mickey', 3),
+(35, 'Minnie', 3),
+(36, 'Bola de nieve', 5),
+(37, 'Scooby Doo', 5),
+(38, 'Vodka', 5),
+(39, 'Lagun', 5),
+(40, 'Perro salchicha', 16);
 -- The password for each user is its login suffixed with "pass". For example, user "admin" has the password "adminpass".
 INSERT INTO `daaexample`.`users` (`login`,`password`,`role`)
 VALUES ('admin', '713bfda78870bf9d1b261f565286f85e97ee614efe5f0faf7c34e7ca4f65baca','ADMIN');

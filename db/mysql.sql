@@ -1,9 +1,10 @@
 CREATE DATABASE `daaexample`;
 
 CREATE TABLE `daaexample`.`people` (
-	`id` int NOT NULL AUTO_INCREMENT,
-	`name` varchar(50) NOT NULL,
-	`surname` varchar(100) NOT NULL,
+	`id` int(11) NOT NULL,
+  	`name` varchar(50) NOT NULL,
+  	`surname` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -15,11 +16,9 @@ CREATE TABLE `daaexample`.`users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `pets` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` varchar(50) NOT NULL,
-	`ownerID` int(11) DEFAULT NULL,
-	KEY `fk_people` (`id`),
-	CONSTRAINT `fk_people` FOREIGN KEY (`id`) REFERENCES `people` (`id`)
+	`id` int(11) NOT NULL,
+  	`name` varchar(50) NOT NULL,
+  	`ownerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

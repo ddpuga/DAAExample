@@ -91,6 +91,7 @@ public class PetsResourceTest extends JerseyTest {
 		assertThat(response, hasOkStatus());
 
 		final List<Pet> pets = response.readEntity(new GenericType<List<Pet>>(){});
+		System.out.print(pets);
 		
 		assertThat(pets, containsPetsInAnyOrder(pets()));
 	}
@@ -137,7 +138,7 @@ public class PetsResourceTest extends JerseyTest {
 	public void testAdd() throws IOException {
 		final Form form = new Form();
 		form.param("name", newName());
-		form.param("owner", newOwner());
+		form.param("ownerID", newOwner());
 		
 		final Response response = target("pets").request(MediaType.APPLICATION_JSON_TYPE)
 			.header("Authorization", "Basic " + userToken(adminLogin()))

@@ -13,7 +13,12 @@
 	<people id="9" name="Julia" surname="Justa" />
 	<people id="10" name="Juan" surname="Jiménez" />
 	<people id="11" name="John" surname="Doe" />
-
+	
 	<users login="admin" password="713bfda78870bf9d1b261f565286f85e97ee614efe5f0faf7c34e7ca4f65baca" role="ADMIN"/>
 	<users login="normal" password="7bf24d6ca2242430343ab7e3efb89559a47784eea1123be989c1b2fb2ef66e83" role="USER" />
+	
+	<pets id="1" name="Gatete" ownerID="3" />
+	<pets id="2" name="Perrete" ownerID="3" />
+	<pets id="3" name="Lassie" ownerID="3" />
+	<pets id="4" name="Minnie" ownerID="4" />
 </dataset>
